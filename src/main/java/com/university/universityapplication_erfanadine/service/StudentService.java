@@ -1,17 +1,10 @@
 package com.university.universityapplication_erfanadine.service;
 
 import com.university.universityapplication_erfanadine.dto.StudentDto;
-import com.university.universityapplication_erfanadine.entity.FoodWeek;
-import com.university.universityapplication_erfanadine.entity.Lesson;
 import com.university.universityapplication_erfanadine.entity.Student;
-import com.university.universityapplication_erfanadine.repository.FoodWeekRepo;
-import com.university.universityapplication_erfanadine.repository.LessonRepo;
 import com.university.universityapplication_erfanadine.repository.StudentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class StudentService {
@@ -19,11 +12,25 @@ public class StudentService {
     @Autowired
     private StudentRepo studentRepo;
 
-    @Autowired
-    private LessonRepo lessonRepo;
 
-    @Autowired
-    private FoodWeekRepo foodWeekRepo;
+    private StudentDto save(StudentDto lessonDto) {
+        return convertStudentModelToStudentDto(studentRepo.save(convertStudentDtoToStudentModel(lessonDto)));
+    }
+
+    private StudentDto update(StudentDto lessonDto) {
+        return convertStudentModelToStudentDto(studentRepo.save(convertStudentDtoToStudentModel(lessonDto)));
+    }
+
+    private StudentDto findById(Long id) {
+        return convertStudentModelToStudentDto(studentRepo.findById(id).orElseThrow(() ->
+                new RuntimeException("not found student by this id : " + id)));
+    }
+
+    private StudentDto findByName(String firstName, String lastName) {
+        return convertStudentModelToStudentDto(studentRepo.findByFirstNameAndLastName(firstName, lastName).orElseThrow(() ->
+                new RuntimeException("not found student by this full firstName : " + firstName + " lastName : " + lastName)));
+    }
+
 
 
     public StudentDto convertStudentModelToStudentDto(Student student) {

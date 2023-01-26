@@ -4,14 +4,32 @@ import com.university.universityapplication_erfanadine.dto.WalletDto;
 import com.university.universityapplication_erfanadine.entity.Wallet;
 import com.university.universityapplication_erfanadine.repository.StudentRepo;
 import com.university.universityapplication_erfanadine.repository.WalletRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class WalletService {
 
+    @Autowired
     private WalletRepo walletRepo;
 
+    @Autowired
     private StudentRepo studentRepo;
+
+
+    private WalletDto save(WalletDto walletDto) {
+        return convertWalletModelToWalletDto(walletRepo.save(convertWalletDtoToWalletModel(walletDto)));
+    }
+
+    private WalletDto update(WalletDto walletDto) {
+        return convertWalletModelToWalletDto(walletRepo.save(convertWalletDtoToWalletModel(walletDto)));
+    }
+
+    private WalletDto findById(Long id) {
+        return convertWalletModelToWalletDto(walletRepo.findById(id).orElseThrow(() ->
+                new RuntimeException("not found lesson by this id : " + id)));
+    }
+
 
     public WalletDto convertWalletModelToWalletDto(Wallet wallet) {
         if (wallet == null) {
@@ -36,7 +54,8 @@ public class WalletService {
 
         wallet.setId(walletDto.getId());
         wallet.setCash(walletDto.getCash());
-        wallet.setStudent(studentRepo.findById(walletDto.getStudentId()).get());
+        wallet.setStudent(studentRepo.findById(walletDto.getStudentId()).orElseThrow(() ->
+                        new RuntimeException("not found student for add to wallet ")));
 
         return wallet;
     }

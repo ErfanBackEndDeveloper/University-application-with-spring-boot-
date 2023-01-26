@@ -14,6 +14,8 @@ import java.util.List;
 @Getter
 public class FoodWeekDto extends BaseEntityDto {
 
+    private Long id;
+
     private String foodName;
 
     private Days days;

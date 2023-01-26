@@ -2,7 +2,7 @@ package com.university.universityapplication_erfanadine.service;
 
 import com.university.universityapplication_erfanadine.dto.LessonDto;
 import com.university.universityapplication_erfanadine.entity.Lesson;
-import com.university.universityapplication_erfanadine.repository.*;
+import com.university.universityapplication_erfanadine.repository.LessonRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,18 +12,24 @@ public class LessonService {
     @Autowired
     private LessonRepo lessonRepo;
 
-    @Autowired
-    private UnitOfUniversityRepo unitOfUniversityRepo;
+    private LessonDto save(LessonDto lessonDto) {
+        return convertLessonModelToLessonDto(lessonRepo.save(convertLessonDtoToLessonModel(lessonDto)));
+    }
 
+    private LessonDto update(LessonDto lessonDto) {
+        return convertLessonModelToLessonDto(lessonRepo.save(convertLessonDtoToLessonModel(lessonDto)));
+    }
 
-    @Autowired
-    private StudentRepo studentRepo;
+    private LessonDto findById(Long id) {
+        return convertLessonModelToLessonDto(lessonRepo.findById(id).orElseThrow(() ->
+                new RuntimeException("not found lesson by this id : " + id)));
+    }
 
-    @Autowired
-    private TeacherRepo teacherRepo;
+    private LessonDto findByName(String nameOfCourse) {
+        return convertLessonModelToLessonDto(lessonRepo.findByNameOfCourse(nameOfCourse).orElseThrow(() ->
+                new RuntimeException("not found lesson by this name : " + nameOfCourse)));
+    }
 
-    @Autowired
-    private BookRepo bookRepo;
 
     public LessonDto convertLessonModelToLessonDto(Lesson lesson) {
 

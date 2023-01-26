@@ -3,8 +3,6 @@ package com.university.universityapplication_erfanadine.service;
 import com.university.universityapplication_erfanadine.dto.FoodWeekDto;
 import com.university.universityapplication_erfanadine.entity.FoodWeek;
 import com.university.universityapplication_erfanadine.repository.FoodWeekRepo;
-import com.university.universityapplication_erfanadine.repository.StudentRepo;
-import com.university.universityapplication_erfanadine.repository.TeacherRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,28 +10,24 @@ import org.springframework.stereotype.Service;
 public class FoodWeekService {
 
     @Autowired
-    private StudentRepo studentRepo;
-
-    @Autowired
-    private TeacherRepo teacherRepo;
-
-    @Autowired
     private FoodWeekRepo foodWeekRepo;
 
-    private void save(FoodWeekDto foodWeekDto) {
-        FoodWeek foodWeek = foodWeekRepo.save(convertFoodDtoToFoodModel(foodWeekDto));
+    private FoodWeekDto save(FoodWeekDto foodWeekDto) {
+        return convertFoodModelToFoodDto(foodWeekRepo.save(convertFoodDtoToFoodModel(foodWeekDto)));
     }
 
-    private void update(FoodWeekDto foodWeekDto) {
-        foodWeekRepo.save(convertFoodDtoToFoodModel(foodWeekDto));
+    private FoodWeekDto update(FoodWeekDto foodWeekDto) {
+        return convertFoodModelToFoodDto(foodWeekRepo.save(convertFoodDtoToFoodModel(foodWeekDto)));
     }
 
-    private void findById(Long id) {
-        foodWeekRepo.findById(id).orElseThrow(() -> new RuntimeException("not found foodWeek by this id : " + id));
+    private FoodWeekDto findById(Long id) {
+        return convertFoodModelToFoodDto(foodWeekRepo.findById(id).orElseThrow(() ->
+                new RuntimeException("not found foodWeek by this id : " + id)));
     }
 
-    private void findByName(String foodName) {
-        foodWeekRepo.findByFoodName(foodName);
+    private FoodWeekDto findByName(String foodName) {
+        return convertFoodModelToFoodDto(foodWeekRepo.findByFoodName(foodName).orElseThrow(() ->
+                new RuntimeException("not found foodWeek by this name : " + foodName)));
     }
 
 

@@ -14,8 +14,8 @@ import java.util.List;
 @Getter
 public class TeacherDto extends BaseInformation {
 
-    private List<Long> foodWeeks_Id = new ArrayList<>();
-    private List<Long> lessons_Id = new ArrayList<>();
-    private List<Long> unitOfUniversities_Id = new ArrayList<>();
+    private List<FoodWeek> foodWeeks = new ArrayList<>();
+    private List<Lesson> lessons = new ArrayList<>();
+    private List<UnitOfUniversity> unitOfUniversities = new ArrayList<>();
 
 }

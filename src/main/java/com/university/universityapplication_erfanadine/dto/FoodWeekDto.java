@@ -26,8 +26,8 @@ public class FoodWeekDto extends BaseEntityDto {
 
     private Boolean FoodIsReady;
 
-    private List<Long> students_Id = new ArrayList<>();
+    private List<Student> students = new ArrayList<>();
 
-    private List<Long> teachers_Id = new ArrayList<>();
+    private List<Teacher> teachers = new ArrayList<>();
 
 }

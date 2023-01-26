@@ -13,9 +13,9 @@ import java.util.List;
 @Getter
 public class StudentDto extends BaseInformation {
 
-    private List<Long> foodWeeks_Id = new ArrayList<>();
+    private List<FoodWeek> foodWeeks = new ArrayList<>();
 
-    private List<Long> lessons_Id = new ArrayList<>();
+    private List<Lesson> lessons = new ArrayList<>();
 
     private Wallet wallet;
 

@@ -14,28 +14,28 @@ public class WalletService {
     private StudentRepo studentRepo;
 
     public WalletDto convertWalletModelToWalletDto(Wallet wallet) {
-        if ( wallet == null ) {
+        if (wallet == null) {
             return null;
         }
 
         WalletDto walletDto = new WalletDto();
 
-        walletDto.setId( wallet.getId() );
-        walletDto.setCash( wallet.getCash() );
-        walletDto.setStudentId( wallet.getStudent().getId() );
+        walletDto.setId(wallet.getId());
+        walletDto.setCash(wallet.getCash());
+        walletDto.setStudentId(wallet.getStudent().getId());
 
         return walletDto;
     }
 
     public Wallet convertWalletDtoToWalletModel(WalletDto walletDto) {
-        if ( walletDto == null ) {
+        if (walletDto == null) {
             return null;
         }
 
         Wallet wallet = new Wallet();
 
-        wallet.setId( walletDto.getId() );
-        wallet.setCash( walletDto.getCash() );
+        wallet.setId(walletDto.getId());
+        wallet.setCash(walletDto.getCash());
         wallet.setStudent(studentRepo.findById(walletDto.getStudentId()).get());
 
         return wallet;
